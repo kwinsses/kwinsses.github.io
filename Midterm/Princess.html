@@ -4,19 +4,52 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Princess Mononoke</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-</head>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
     <title>Princess Mononoke</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            background: #0f2f3a;
+            color: white;
+            font-family: Poppins;
+        }
+
+        .navbar-custom {
+            background: #08202a;
+        }
+
+        .hero {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .hero img {
+            width: 100%;
+            height: 455px;
+            object-fit: cover;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .details-box {
+            background: #08202a;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+
 </head>
 
-<body style="margin:0; background:#0f2f3a; color:white; font-family:Poppins;">
+<body>
 
     <!-- NAVBAR -->
     <div
@@ -30,146 +63,123 @@
     </div>
 
     <!-- CONTENT -->
-    <div style="display:flex; justify-content:space-between; padding:20px; align-items:flex-start; gap:50px;">
+    <div class="container-fluid py-4" style="padding-left:0;">
 
-        <!-- LEFT SIDE -->
-        <div style="text-align:left;">
+        <div class="row g-4 align-items-start">
 
-            <a href="index.html"
-                style="color:gold; text-decoration:none; display:block; margin-bottom:10px; font-size:18px;">
-                ←
-            </a>
+            <!-- LEFT SIDE -->
+            <div class="col-md-auto ms-4">
 
-            <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/jHWmNr7m544fJ8eItsfNk8fs2Ed.jpg" width="300"
-                style="border-radius:10px;">
+                <a href="#" class="text-warning text-decoration-none d-block mb-2">
+                    ←
+                </a>
 
-            <div style="
-    width:260px;
-    margin-top:15px;
-    padding:18px;
-    background:#08202a;
-    border-radius:12px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.4);
-">
+                <!-- WRAPPER to force same width -->
+                <div style="width:300px;">
 
-                <h3 style="margin:0 0 12px 0; font-size:15px; color:gold;">
-                    Details
-                </h3>
+                    <img id="poster" class="img-fluid rounded d-block w-100">
 
-                <p style="margin:0 0 10px 0; font-size:14px;">
-                    <span style="color:#aaa;">Director:</span>
-                    Hayao Miyazaki
-                </p>
+                    <div class="details-box mt-3 w-100">
 
-                <p style="margin:0 0 10px 0; font-size:14px;">
-                    <span style="color:#aaa;">Language:</span>
-                    Japanese
-                </p>
+                        <h6 class="text-warning">Details</h6>
 
-                <p style="margin:0 0 10px 0; font-size:14px;">
-                    <span style="color:#aaa;">Country:</span>
-                    Japan
-                </p>
+                        <p class="mb-1"><span class="text-secondary">Director:</span> <span id="director"></span></p>
+                        <p class="mb-1"><span class="text-secondary">Producer:</span> <span id="producer"></span></p>
+                        <p class="mb-1"><span class="text-secondary">Release:</span> <span id="release"></span></p>
+                        <p class="mb-0"><span class="text-secondary">Runtime:</span> <span id="runtime"></span> min</p>
 
-                <p style="margin:0 0 10px 0; font-size:14px;">
-                    <span style="color:#aaa;">Release:</span>
-                    1997
-                </p>
-
-                <p style="margin:0; font-size:14px;">
-                    <span style="color:#aaa;">Studio:</span>
-                    Studio Ghibli
-                </p>
-
-            </div>
-        </div>
-
-        <!-- RIGHT SIDE -->
-        <div style="margin-top:28px; width:2000px;">
-
-            <div style="position:relative; width:90%; height:455px; border-radius:10px; overflow:hidden;">
-
-                <img src="https://image.tmdb.org/t/p/original/6pTqSq0zYIWCsucJys8q5L92kUY.jpg"
-                    style="width:100%; height:100%; object-fit:cover;">
-
-                <!-- DARK OVERLAY -->
-                <div style="
-                    position:absolute;
-                    top:0; left:0;
-                    width:100%; height:100%;
-                    background:rgba(0,0,0,0.4);
-                "></div>
-
-                <!-- CLEAN TEXT -->
-                <div style="
-                    position:absolute;
-                    top:60px;
-                    left:40px;
-                    max-width:500px;
-                ">
-
-                    <h2 style="margin:0 0 15px 0; font-size:48px; line-height:1.1;">
-                        Princess Mononoke
-                    </h2>
-
-                    <p style="margin:0; font-size:16px; line-height:1.6; color:#ddd;">
-                    <h3>1997 / Animation, Adventure, Fantasy / 2h 14m</h3>
-                    <h4>
-                        ⭐️⭐️⭐️⭐️ 8.2/10
-                    </h4>
-                    Ashitaka, a prince of the disappearing Ainu tribe, is cursed by a demonized boar god and must
-                    journey to the west to find a cure. Along the way, he encounters San, a young human woman fighting
-                    to protect the forest, and Lady Eboshi, who is trying to destroy it. Ashitaka must find a way to
-                    bring balance to this conflict.
-                    </p>
-
-                    <a href="#" style="
-                    display:inline-block;
-                    margin-top:20px;
-                    padding:12px 25px;
-                    background:gold;
-                    color:#000;
-                    text-decoration:none;
-                    border-radius:8px;
-                    font-weight:600;
-                    font-size:14px;
-                    box-shadow:0 5px 15px rgba(0,0,0,0.4);
-                    transition:0.3s;
-                                    " onmouseover="this.style.background='#ffd700cc'"
-                        onmouseout="this.style.background='gold'">
-                        ▶ Watch Movie
-                    </a>
+                    </div>
 
                 </div>
 
             </div>
 
-            <!-- TRAILER -->
-            <div style="margin-top:20px;">
+            <!-- RIGHT SIDE -->
+            <div class="col-md-auto ms-5">
 
-                <h3 style="margin:0 0 10px 0; color:gold;">
-                    Trailer
-                </h3>
+                <div class="hero position-relative" style="margin-top: 36px;">
+                    <img id="heroImage" class="w-100 rounded" style="height:515px; object-fit:cover;">
+                    <div class="overlay"></div>
+                    <div class="position-absolute top-0 start-0 p-4" style="max-width:600px;">
+                        <h1 id="title" class="fw-bold mt-5"></h1>
+                        <h5 id="subtitle" class="text-warning"></h5>
+                        <p id="description" class="text-light mt-3"></p>
+                        <h5 id="rating" class="mt-3"></h5>
+                        <a href="#" class="btn btn-warning mt-3 fw-semibold">
+                            ▶ Watch Movie
+                        </a>
 
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/vf6c6n35wr4?si=HYAOJ6OcnV7_kLJx"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+
+                </div>
+
+                <!-- TRAILER -->
+                <div style="margin-top:20px;">
+
+                    <h3 style="margin:0 0 10px 0; color:gold;">
+                        Trailer
+                    </h3>
+
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/vf6c6n35wr4?si=HYAOJ6OcnV7_kLJx"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+                </div>
+
             </div>
+
         </div>
 
     </div>
 
-    </div>
+    <script>
+        async function loadMovie() {
+            try {
+                console.log("Fetching data...");
+                const res = await fetch("https://ghibliapi.vercel.app/films");
+
+                if (!res.ok) throw new Error("Network response was not ok");
+
+                const films = await res.json();
+
+                // 1. Find the specific film
+                const film = films.find(f => f.title === "Princess Mononoke");
+
+                if (!film) {
+                    console.error("Film 'Princess Mononoke' not found in API.");
+                    return;
+                }
+
+                // 2. Set Images
+                document.getElementById("poster").src = film.image;
+                document.getElementById("heroImage").src = film.movie_banner;
+
+                // 3. Set Text Content
+                document.getElementById("title").textContent = film.title;
+                document.getElementById("description").textContent = film.description;
+
+                // 4. Set HTML content (Using Backticks ` ` is CRITICAL)
+                document.getElementById("subtitle").innerHTML = film.release_date + " / Animation / " + film.running_time + " min";
+                document.getElementById("rating").innerHTML = "⭐⭐⭐⭐⭐ " + film.rt_score + "/100";
+
+                // 5. Set Details
+                document.getElementById("director").textContent = film.director;
+                document.getElementById("producer").textContent = film.producer;
+                document.getElementById("release").textContent = film.release_date;
+                document.getElementById("runtime").textContent = film.running_time;
+
+                console.log("Page populated successfully!");
+
+            } catch (err) {
+                console.error("Error loading film:", err);
+            }
+        }
+
+        // This waits for the HTML to be fully loaded before running the script
+        document.addEventListener("DOMContentLoaded", loadMovie);
+    </script>
 
 </body>
 
 </html>
-<body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
-</body>
-
-</html>
-

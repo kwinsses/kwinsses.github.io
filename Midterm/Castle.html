@@ -136,38 +136,48 @@
     <script>
         async function loadMovie() {
             try {
-                const res = await fetch("https://ghibliapi.vercel.app/films/");
+                console.log("Fetching data...");
+                const res = await fetch("https://ghibliapi.vercel.app/films");
+
+                if (!res.ok) throw new Error("Network response was not ok");
+
                 const films = await res.json();
 
-                // Name of the film we want to display
+                // 1. Find the specific film
                 const film = films.find(f => f.title === "Castle in the Sky");
 
-                if (!film) return;
+                if (!film) {
+                    console.error("Film 'Castle in the Sky' not found in API.");
+                    return;
+                }
 
-                // Image on the left side (poster)
-                document.getElementById("poster").src = "https://image.tmdb.org/t/p/w300" + film.image?.replace("http://image.tmdb.org/t/p/", "");
+                // 2. Set Images
+                document.getElementById("poster").src = film.image;
+                document.getElementById("heroImage").src = film.movie_banner;
 
-                // Image on the right side (Banner)
-                document.getElementById("heroImage").src = film.movie_banner || film.image;
-
+                // 3. Set Text Content
                 document.getElementById("title").textContent = film.title;
-                document.getElementById("subtitle").innerHTML = <h3>${film.release_date} / ${film.genre || "Animation"} / ${film.running_time} min</h3>;
                 document.getElementById("description").textContent = film.description;
 
-                document.getElementById("rating").innerHTML = <h4>⭐⭐⭐⭐⭐ ${film.rt_score}/100</h4>;
+                // 4. Set HTML content (Using Backticks ` ` is CRITICAL)
+                document.getElementById("subtitle").innerHTML = film.release_date + " / Animation / " + film.running_time + " min";
+                document.getElementById("rating").innerHTML = "⭐⭐⭐⭐⭐ " + film.rt_score + "/100";
 
-                // DETAILS
+                // 5. Set Details
                 document.getElementById("director").textContent = film.director;
                 document.getElementById("producer").textContent = film.producer;
                 document.getElementById("release").textContent = film.release_date;
                 document.getElementById("runtime").textContent = film.running_time;
+
+                console.log("Page populated successfully!");
 
             } catch (err) {
                 console.error("Error loading film:", err);
             }
         }
 
-        loadMovie();
+        // This waits for the HTML to be fully loaded before running the script
+        document.addEventListener("DOMContentLoaded", loadMovie);
     </script>
 
 </body>
