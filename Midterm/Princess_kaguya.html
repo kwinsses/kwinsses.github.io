@@ -71,15 +71,35 @@
 
 <body>
 
-    <!-- NAVBAR -->
-    <div style="display:flex; justify-content:space-between; align-items:center; padding:15px 30px; background:#08202a;">
-        <h2 style="margin:0; color:gold;">Ghibli Films</h2>
+    <nav class="navbar navbar-expand-lg px-4" style="background:#08202a;">
+        <div class="container-fluid">
 
-        <div>
-            <a href="index.html" style="color:white; margin-right:20px; text-decoration:none;">Home</a>
-            <a href="#" style="color:white; margin-right:20px; text-decoration:none;">Movies</a>
+            <!-- LOGO -->
+            <a class="navbar-brand fw-bold fs-3" href="#" style="color:gold;">
+                Ghibli Films
+            </a>
+
+            <!-- LINKS -->
+            <div class="d-flex gap-4">
+                <a href="index.html" class="nav-link-custom">Home</a>
+                <a href="Movies.html" class="nav-link-custom">Movies</a>
+            </div>
+
         </div>
-    </div>
+    </nav>
+
+    <style>
+        .nav-link-custom {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-link-custom:hover {
+            color: gold;
+        }
+    </style>
 
     <!-- CONTENT -->
     <div class="container-fluid py-4">
@@ -89,7 +109,7 @@
             <!-- LEFT -->
             <div class="col-md-auto ms-4">
 
-                <a href="#" class="text-warning text-decoration-none d-block mb-2">←</a>
+                <a href="Movies.html" class="text-warning text-decoration-none d-block mb-2">←</a>
 
                 <div style="width:300px;">
                     <img id="poster" class="img-fluid rounded d-block w-100">
@@ -119,7 +139,8 @@
                         <p id="description" class="text-light mt-3"></p>
                         <h5 id="rating" class="mt-3"></h5>
 
-                        <a href="#" class="btn btn-warning mt-3 fw-semibold">
+                        <a href="https://www.youtube.com/watch?v=6aE_xhDwppw?" class="btn btn-warning mt-3 fw-semibold"
+                            target="_blank" rel="noopener noreferrer">
                             ▶ Watch Movie
                         </a>
                     </div>
@@ -133,8 +154,8 @@
                         <h3 style="margin:0 0 10px 0; color:gold;">Trailer</h3>
 
                         <iframe width="100%" height="315"
-                            src="https://www.youtube.com/embed/PZK2y9NAaNo?si=VKcmmOmzFYK_D5Ug"
-                            frameborder="0" allowfullscreen></iframe>
+                            src="https://www.youtube.com/embed/PZK2y9NAaNo?si=VKcmmOmzFYK_D5Ug" frameborder="0"
+                            allowfullscreen></iframe>
                     </div>
 
                     <!-- POPULAR (ADDED + FIXED) -->
@@ -161,49 +182,66 @@
 
     <script>
         async function loadMovie() {
-            try {
-                const res = await fetch("https://ghibliapi.vercel.app/films");
-                const films = await res.json();
 
-                const film = films.find(f => f.title === "The Tale of the Princess Kaguya");
+            const res = await fetch("https://ghibliapi.vercel.app/films");
+            const films = await res.json();
 
-                document.getElementById("poster").src = film.image;
-                document.getElementById("heroImage").src = film.movie_banner;
-                document.getElementById("title").textContent = film.title;
-                document.getElementById("description").textContent = film.description;
+            const film = films.find(movie => movie.title === "The Tale of the Princess Kaguya");
 
-                document.getElementById("subtitle").innerHTML =
-                    film.release_date + " / Animation / " + film.running_time + " min";
+            poster.src = film.image;
+            heroImage.src = film.movie_banner;
+            title.textContent = film.title;
+            description.textContent = film.description;
 
-                document.getElementById("rating").innerHTML =
-                    "⭐⭐⭐⭐⭐ " + film.rt_score + "/100";
+            subtitle.innerHTML =
+                `${film.release_date} / Animation / ${film.running_time} min`;
 
-                document.getElementById("director").textContent = film.director;
-                document.getElementById("producer").textContent = film.producer;
-                document.getElementById("release").textContent = film.release_date;
-                document.getElementById("runtime").textContent = film.running_time;
+            rating.innerHTML =
+                `⭐⭐⭐⭐⭐ ${film.rt_score}/100`;
 
-                // ✅ POPULAR (SAME STYLE AS ARRIETTY)
-                const popular = films
-                    .sort((a, b) => b.rt_score - a.rt_score)
-                    .slice(0, 6);
+            director.textContent = film.director;
+            producer.textContent = film.producer;
+            release.textContent = film.release_date;
+            runtime.textContent = film.running_time;
 
-                const list = document.getElementById("popularList");
+            // Popular Movies
+            const popular = films
+                .sort((a, b) => b.rt_score - a.rt_score)
+                .slice(0, 6);
 
-                popular.forEach(movie => {
-                    const img = document.createElement("img");
-                    img.src = movie.image;
-                    img.alt = movie.title;
+            popular.forEach(movie => {
 
-                    list.appendChild(img);
-                });
+                let fileName = "#";
 
-            } catch (err) {
-                console.error(err);
-            }
+                if (movie.title === "Only Yesterday") {
+                    fileName = "yesterday.html";
+                }
+
+                else if (movie.title === "The Tale of the Princess Kaguya") {
+                    fileName = "Princess_kaguya.html";
+                }
+
+                else if (movie.title === "Grave of the Fireflies") {
+                    fileName = "Grave.html";
+                }
+
+                else if (movie.title === "Kiki's Delivery Service") {
+                    fileName = "kiki's.html";
+                }
+
+                else if (movie.title === "Castle in the Sky") {
+                    fileName = "Castle.html";
+                }
+
+                popularList.innerHTML += `
+        <a href="${fileName}">
+            <img src="${movie.image}" alt="${movie.title}">
+        </a>
+    `;
+            });
         }
 
-        document.addEventListener("DOMContentLoaded", loadMovie);
+        loadMovie();
     </script>
 
 </body>
