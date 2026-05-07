@@ -45,6 +45,26 @@
             padding: 18px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
         }
+
+        /* ✅ POPULAR (SAME AS ARRIETTY) */
+        #popularList::-webkit-scrollbar {
+            display: none;
+        }
+
+        #popularList img {
+            width: 120px;
+            height: 280px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 12px;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #popularList img:hover {
+            transform: scale(1.05);
+        }
     </style>
 
 </head>
@@ -52,8 +72,7 @@
 <body>
 
     <!-- NAVBAR -->
-    <div
-        style="display:flex; justify-content:space-between; align-items:center; padding:15px 30px; background:#08202a;">
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:15px 30px; background:#08202a;">
         <h2 style="margin:0; color:gold;">Ghibli Films</h2>
 
         <div>
@@ -63,67 +82,74 @@
     </div>
 
     <!-- CONTENT -->
-    <div class="container-fluid py-4" style="padding-left:0;">
+    <div class="container-fluid py-4">
 
         <div class="row g-4 align-items-start">
 
-            <!-- LEFT SIDE -->
+            <!-- LEFT -->
             <div class="col-md-auto ms-4">
 
-                <a href="#" class="text-warning text-decoration-none d-block mb-2">
-                    ←
-                </a>
+                <a href="#" class="text-warning text-decoration-none d-block mb-2">←</a>
 
-                <!-- WRAPPER to force same width -->
                 <div style="width:300px;">
-
                     <img id="poster" class="img-fluid rounded d-block w-100">
 
                     <div class="details-box mt-3 w-100">
-
                         <h6 class="text-warning">Details</h6>
 
                         <p class="mb-1"><span class="text-secondary">Director:</span> <span id="director"></span></p>
                         <p class="mb-1"><span class="text-secondary">Producer:</span> <span id="producer"></span></p>
                         <p class="mb-1"><span class="text-secondary">Release:</span> <span id="release"></span></p>
                         <p class="mb-0"><span class="text-secondary">Runtime:</span> <span id="runtime"></span> min</p>
-
                     </div>
-
                 </div>
 
             </div>
 
-            <!-- RIGHT SIDE -->
+            <!-- RIGHT -->
             <div class="col-md-auto ms-5">
 
                 <div class="hero position-relative" style="margin-top: 36px;">
                     <img id="heroImage" class="w-100 rounded" style="height:515px; object-fit:cover;">
                     <div class="overlay"></div>
+
                     <div class="position-absolute top-0 start-0 p-4" style="max-width:600px;">
                         <h1 id="title" class="fw-bold mt-5"></h1>
                         <h5 id="subtitle" class="text-warning"></h5>
                         <p id="description" class="text-light mt-3"></p>
                         <h5 id="rating" class="mt-3"></h5>
+
                         <a href="#" class="btn btn-warning mt-3 fw-semibold">
                             ▶ Watch Movie
                         </a>
-
                     </div>
-
                 </div>
 
-                <!-- TRAILER -->
-                <div style="margin-top:20px;">
+                <!-- TRAILER + POPULAR -->
+                <div class="row mt-4">
 
-                    <h3 style="margin:0 0 10px 0; color:gold;">
-                        Trailer
-                    </h3>
+                    <!-- TRAILER -->
+                    <div class="col-md-8">
+                        <h3 style="margin:0 0 10px 0; color:gold;">Trailer</h3>
 
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/25aQLIj6jPM?si=0V8RqoHVJViJe3FQ"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <iframe width="100%" height="315"
+                            src="https://www.youtube.com/embed/25aQLIj6jPM"
+                            frameborder="0" allowfullscreen></iframe>
+                    </div>
+
+                    <!-- POPULAR (ADDED + FIXED) -->
+                    <div class="col-md-4">
+                        <h3 style="color:gold;">Popular</h3>
+
+                        <div id="popularList" style="
+                            display:flex;
+                            gap:12px;
+                            overflow-x:auto;
+                            height:315px;
+                            align-items:center;
+                            padding-bottom:10px;
+                        "></div>
+                    </div>
 
                 </div>
 
@@ -136,47 +162,47 @@
     <script>
         async function loadMovie() {
             try {
-                console.log("Fetching data...");
                 const res = await fetch("https://ghibliapi.vercel.app/films");
-
-                if (!res.ok) throw new Error("Network response was not ok");
-
                 const films = await res.json();
 
-                // 1. Find the specific film
                 const film = films.find(f => f.title === "The Cat Returns");
 
-                if (!film) {
-                    console.error("Film 'The Cat Returns' not found in API.");
-                    return;
-                }
-
-                // 2. Set Images
                 document.getElementById("poster").src = film.image;
                 document.getElementById("heroImage").src = film.movie_banner;
-
-                // 3. Set Text Content
                 document.getElementById("title").textContent = film.title;
                 document.getElementById("description").textContent = film.description;
 
-                // 4. Set HTML content (Using Backticks ` ` is CRITICAL)
-                document.getElementById("subtitle").innerHTML = film.release_date + " / Animation / " + film.running_time + " min";
-                document.getElementById("rating").innerHTML = "⭐⭐⭐⭐⭐ " + film.rt_score + "/100";
+                document.getElementById("subtitle").innerHTML =
+                    film.release_date + " / Animation / " + film.running_time + " min";
 
-                // 5. Set Details
+                document.getElementById("rating").innerHTML =
+                    "⭐⭐⭐⭐⭐ " + film.rt_score + "/100";
+
                 document.getElementById("director").textContent = film.director;
                 document.getElementById("producer").textContent = film.producer;
                 document.getElementById("release").textContent = film.release_date;
                 document.getElementById("runtime").textContent = film.running_time;
 
-                console.log("Page populated successfully!");
+                // ✅ POPULAR (SAME STYLE AS ARRIETTY)
+                const popular = films
+                    .sort((a, b) => b.rt_score - a.rt_score)
+                    .slice(0, 6);
+
+                const list = document.getElementById("popularList");
+
+                popular.forEach(movie => {
+                    const img = document.createElement("img");
+                    img.src = movie.image;
+                    img.alt = movie.title;
+
+                    list.appendChild(img);
+                });
 
             } catch (err) {
-                console.error("Error loading film:", err);
+                console.error(err);
             }
         }
 
-        // This waits for the HTML to be fully loaded before running the script
         document.addEventListener("DOMContentLoaded", loadMovie);
     </script>
 

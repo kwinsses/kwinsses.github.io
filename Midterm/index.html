@@ -22,10 +22,49 @@
             color: #fff;
         }
 
+        /* NAVBAR */
         .navbar {
             position: absolute;
             width: 100%;
             z-index: 10;
+            background-color: #0f2f3a !important;
+        }
+
+        .navbar-brand {
+            color: #d4af37 !important;
+            font-weight: 600;
+        }
+
+        .nav-link {
+            color: #fff !important;
+        }
+
+        .nav-link:hover {
+            color: #d4af37 !important;
+        }
+
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-control {
+            background-color: #143c4a;
+            border: 1px solid #d4af37;
+            color: #fff;
+        }
+
+        .form-control::placeholder {
+            color: #ccc;
+        }
+
+        .btn-outline-success {
+            color: #d4af37;
+            border-color: #d4af37;
+        }
+
+        .btn-outline-success:hover {
+            background-color: #d4af37;
+            color: #0f2f3a;
         }
 
         .hero {
@@ -108,6 +147,14 @@
             text-decoration: none;
             color: inherit;
         }
+
+        .not-found {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #d4af37;
+            display: none;
+        }
     </style>
 
 </head>
@@ -115,20 +162,36 @@
 <body>
 
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid px-5">
-            <h2 style="margin:0; color:gold;">Ghibli Films</h2>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
 
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Movies.html">Movies</a></li>
+            <a class="navbar-brand" href="#">Studio Ghibli</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarScroll">
+
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="Movies.html">Movies</a>
+                    </li>
+
                 </ul>
 
-                <form class="d-flex ms-3">
-                    <input class="form-control me-2 search-input" type="search" placeholder="Search movies...">
-                    <button class="btn">Search</button>
+                <!-- SEARCH -->
+                <form class="d-flex" role="search" onsubmit="return false;">
+                    <input id="searchInput" class="form-control me-2" type="search" placeholder="Search movies...">
+                    <button class="btn btn-outline-success" type="button" onclick="searchMovies()">Search</button>
+
                 </form>
+
             </div>
         </div>
     </nav>
@@ -137,7 +200,9 @@
     <section class="hero">
         <div class="hero-text">
             <h2>My Neighbor TOTORO</h2>
-            <button class="btn">Watch Movies</button>
+            <button class="btn" onclick="location.href='totoro.html'">
+                Watch Movies
+            </button>
         </div>
     </section>
 
@@ -148,83 +213,117 @@
 
         <div class="cards">
 
-            <!-- CARD 1 -->
             <div class="card">
                 <a href="Yamadas.html">
-                    <div class="card-content" id="yamadas">
-
-                    </div>
+                    <div class="card-content" id="yamadas"></div>
                 </a>
             </div>
 
-            <!-- CARD 2 -->
             <div class="card">
                 <a href="Castle.html">
-                    <div class="card-content" id="castle">
-
-                    </div>
+                    <div class="card-content" id="castle"></div>
                 </a>
             </div>
 
-            <!-- CARD 3 -->
             <div class="card">
                 <a href="whisper.html">
-                    <div class="card-content" id="whisper">
-
-                    </div>
+                    <div class="card-content" id="whisper"></div>
                 </a>
             </div>
 
-            <!-- CARD 4 -->
             <div class="card">
                 <a href="spirited.html">
-                    <div class="card-content" id="spirited">
-
-                    </div>
+                    <div class="card-content" id="spirited"></div>
                 </a>
             </div>
 
         </div>
-    </section>
 
+        <div class="not-found" id="notFound">❌ Movie not found</div>
+
+    </section>
 
     <script>
         async function loadMovies() {
-            try {
-                const res = await fetch("https://ghibliapi.vercel.app/films/");
-                const movies = await res.json();
+            const res = await fetch("https://ghibliapi.vercel.app/films/");
+            const movies = await res.json();
 
-                const map = {
-                    yamadas: "My Neighbors the Yamadas",
-                    castle: "Castle in the Sky",
-                    whisper: "Whisper of the Heart",
-                    spirited: "Spirited Away"
-                };
+            const map = {
+                yamadas: "My Neighbors the Yamadas",
+                castle: "Castle in the Sky",
+                whisper: "Whisper of the Heart",
+                spirited: "Spirited Away"
+            };
 
-                Object.keys(map).forEach(id => {
-                    const movie = movies.find(m =>
-                        m.title.toLowerCase() === map[id].toLowerCase()
-                    );
+            Object.keys(map).forEach(id => {
+                const movie = movies.find(m =>
+                    m.title.toLowerCase() === map[id].toLowerCase()
+                );
 
-                    if (movie) {
+                if (movie) {
+                    const imgSrc = (id === "yamadas" || id === "castle")
+                        ? movie.movie_banner
+                        : movie.image;
 
-                        const imgSrc = (id === "yamadas" || id === "castle")
-                            ? movie.movie_banner
-                            : movie.image;
+                    document.getElementById(id).innerHTML = `
+                        <img src="${imgSrc}" alt="${movie.title}">
+                        <h4>${movie.title}</h4>
+                    `;
+                }
+            });
+        }
 
-                        document.getElementById(id).innerHTML = `
-                    <img src="${imgSrc}" alt="${movie.title}">
-                    <h4>${movie.title}</h4>
-                `;
-                    }
-                });
+        function searchMovies() {
+            const input = document.getElementById("searchInput").value.toLowerCase().trim();
 
-            } catch (error) {
-                console.error("Error loading movies:", error);
+            const movies = {
+                "my neighbors the yamadas": "Yamadas.html",
+                "castle in the sky": "Castle.html",
+                "whisper of the heart": "whisper.html",
+                "spirited away": "spirited.html",
+                "princess mononoke": "Princess.html",
+                "the cat returns": "Cat.html",
+                "when marnie was there": "Marnie.html",
+                "kiki's delivery service": "kiki's.html",
+                "only yesterday": "yesterday.html",
+                "porco rosso": "porco.html",
+                "ponyo": "ponyo.html",
+                "howl's moving castle": "howls.html",
+                "earwig and the witch": "earwig_witch.html",
+                "my neighbor totoro": "totoro.html",
+                "arrietty": "arrietty.html",
+                "the red turtle": "turtle.html",
+                "tales from earthsea": "Earthsea.html",
+                "grave of the fireflies": "Grave.html",
+                "the wind rises": "wind.html",
+                "pom poko": "poko.html",
+                "from up on poppy hill": "poppy_hill.html",
+                "the tale of the princess kaguya": "Princess_kaguya.html"
+            };
+
+            const notFound = document.getElementById("notFound");
+
+            let found = false;
+
+            for (let title in movies) {
+                if (title.includes(input) && input !== "") {
+                    found = true;
+                    window.location.href = movies[title];
+                    break;
+                }
+            }
+
+            if (!found && input !== "") {
+                notFound.style.display = "block";
+
+                setTimeout(() => {
+                    notFound.style.display = "none";
+                }, 2000);
             }
         }
 
-        // This waits for the HTML to be fully loaded before running the script
+
+
         document.addEventListener("DOMContentLoaded", loadMovies);
     </script>
 
