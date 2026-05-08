@@ -23,14 +23,19 @@
 
         .hero {
             position: relative;
-            border-radius: 10px;
+            width: 100%;
+            max-width: 950px;
+            height: 455px;
+            border-radius: 15px;
             overflow: hidden;
         }
 
         .hero img {
             width: 100%;
-            height: 300px;
+            height: 100%;
             object-fit: cover;
+            object-position: center;
+            display: block;
         }
 
         .overlay {
@@ -64,6 +69,17 @@
         #popularList img:hover {
             transform: scale(1.05);
         }
+
+        .nav-link-custom {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-link-custom:hover {
+            color: gold;
+        }
     </style>
 
 </head>
@@ -87,18 +103,6 @@
         </div>
     </nav>
 
-    <style>
-        .nav-link-custom {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .nav-link-custom:hover {
-            color: gold;
-        }
-    </style>
     <!-- CONTENT -->
     <div class="container-fluid py-4">
 
@@ -128,7 +132,9 @@
             <div class="col-md-auto ms-5">
 
                 <div class="hero position-relative" style="margin-top: 36px;">
-                    <img id="heroImage" class="w-60 rounded" style="height:455px; object-fit:cover;">
+
+                    <img id="heroImage" class="rounded">
+
                     <div class="overlay"></div>
 
                     <div class="position-absolute top-0 start-0 p-4" style="max-width:600px;">
@@ -137,8 +143,9 @@
                         <p id="description" class="text-light mt-3"></p>
                         <h5 id="rating" class="mt-3"></h5>
 
-                        <a href="https://www.youtube.com/watch?v=orVyg8E9uFo?" class="btn btn-warning mt-3 fw-semibold"
-                            target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.youtube.com/watch?v=orVyg8E9uFo?"
+                            class="btn btn-warning mt-3 fw-semibold" target="_blank"
+                            rel="noopener noreferrer">
                             ▶ Watch Movie
                         </a>
                     </div>
@@ -152,8 +159,8 @@
                         <h3 style="margin:0 0 10px 0; color:gold;">Trailer</h3>
 
                         <iframe width="100%" height="315"
-                            src="https://www.youtube.com/embed/KzBBIBSi2Vo?si=rQYnXU66mLfyLKCx" frameborder="0"
-                            allowfullscreen></iframe>
+                            src="https://www.youtube.com/embed/KzBBIBSi2Vo?si=rQYnXU66mLfyLKCx"
+                            frameborder="0" allowfullscreen></iframe>
                     </div>
 
                     <div class="col-md-4">
