@@ -223,7 +223,7 @@
 
             const popular = films.slice(0, 6);
 
-            popular.forEach(movie => {
+           popular.forEach(movie => {
 
                 let fileName = "#";
 
@@ -231,8 +231,8 @@
                     fileName = "yesterday.html";
                 }
 
-                else if (movie.title === "The Tale of the Princess Kaguya") {
-                    fileName = "Princess_kaguya.html";
+                else if (movie.title === "My Neighbor Totoro") {
+                    fileName = "totoro.html";
                 }
 
                 else if (movie.title === "Grave of the Fireflies") {
@@ -245,6 +245,10 @@
 
                 else if (movie.title === "Castle in the Sky") {
                     fileName = "Castle.html";
+                }
+
+                else if (movie.title === "Porco Rosso") {
+                    fileName = "porco.html";
                 }
 
                 popularList.innerHTML += `
