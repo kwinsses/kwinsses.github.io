@@ -17,24 +17,20 @@
             font-family: Poppins;
         }
 
-        .navbar-custom {
-            background: #08202a;
-        }
-
         .hero {
             position: relative;
             width: 100%;
             max-width: 950px;
-            height: 455px;
+            height: 380px;
             border-radius: 15px;
             overflow: hidden;
+            margin-top: 0;
         }
 
         .hero img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center;
             display: block;
         }
 
@@ -51,34 +47,31 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
         }
 
-        #popularList::-webkit-scrollbar {
-            display: none;
-        }
-
         #popularList img {
             width: 120px;
             height: 280px;
             object-fit: cover;
-            object-position: center;
             border-radius: 12px;
             flex-shrink: 0;
             cursor: pointer;
-            transition: 0.3s;
-        }
-
-        #popularList img:hover {
-            transform: scale(1.05);
         }
 
         .nav-link-custom {
             color: white;
             text-decoration: none;
-            font-weight: 500;
-            transition: 0.3s;
         }
 
         .nav-link-custom:hover {
             color: gold;
+        }
+
+        /* HERO TEXT */
+        .hero-text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 16px;
+            max-width: 600px;
         }
     </style>
 
@@ -89,12 +82,10 @@
     <nav class="navbar navbar-expand-lg px-4" style="background:#08202a;">
         <div class="container-fluid">
 
-            <!-- LOGO -->
             <a class="navbar-brand fw-bold fs-3" href="#" style="color:gold;">
                 Ghibli Films
             </a>
 
-            <!-- LINKS -->
             <div class="d-flex gap-4">
                 <a href="index.html" class="nav-link-custom">Home</a>
                 <a href="Movies.html" class="nav-link-custom">Movies</a>
@@ -103,7 +94,6 @@
         </div>
     </nav>
 
-    <!-- CONTENT -->
     <div class="container-fluid py-4">
 
         <div class="row g-4 align-items-start">
@@ -111,12 +101,14 @@
             <!-- LEFT -->
             <div class="col-md-auto ms-4">
 
-                <a href="Movies.html" class="text-warning text-decoration-none d-block mb-2">←</a>
-
                 <div style="width:300px;">
-                    <img id="poster" class="img-fluid rounded d-block w-100">
 
-                    <div class="details-box mt-3 w-100">
+                    <a href="Movies.html" class="text-warning text-decoration-none d-block mb-2">←</a>
+
+                    <img id="poster" class="w-100 rounded"
+                        style="height:380px; object-fit:cover;">
+
+                    <div class="details-box mt-3">
                         <h6 class="text-warning">Details</h6>
 
                         <p class="mb-1"><span class="text-secondary">Director:</span> <span id="director"></span></p>
@@ -124,56 +116,54 @@
                         <p class="mb-1"><span class="text-secondary">Release:</span> <span id="release"></span></p>
                         <p class="mb-0"><span class="text-secondary">Runtime:</span> <span id="runtime"></span> min</p>
                     </div>
+
                 </div>
 
             </div>
 
-            <!-- RIGHT -->
-            <div class="col-md-auto ms-5">
+            <div class="col d-flex flex-column" style="margin-top:50px;">
 
-                <div class="hero position-relative" style="margin-top: 36px;">
+                <div class="hero">
 
-                    <img id="heroImage" class="rounded">
+                    <img id="heroImage">
 
                     <div class="overlay"></div>
 
-                    <div class="position-absolute top-0 start-0 p-4" style="max-width:600px;">
-                        <h1 id="title" class="fw-bold mt-5"></h1>
+                    <div class="hero-text">
+
+                        <h1 id="title" class="fw-bold"></h1>
+
                         <h5 id="subtitle" class="text-warning"></h5>
-                        <p id="description" class="text-light mt-3"></p>
-                        <h5 id="rating" class="mt-3"></h5>
+
+                        <p id="description" class="text-light mt-2"></p>
+
+                        <h5 id="rating" class="mt-2"></h5>
 
                         <a href="https://www.youtube.com/watch?v=orVyg8E9uFo?"
-                            class="btn btn-warning mt-3 fw-semibold" target="_blank"
-                            rel="noopener noreferrer">
+                            class="btn btn-warning mt-3 fw-semibold"
+                            target="_blank">
                             ▶ Watch Movie
                         </a>
+
                     </div>
+
                 </div>
 
                 <!-- TRAILER + POPULAR -->
                 <div class="row mt-4">
 
-                    <!-- TRAILER -->
                     <div class="col-md-8">
-                        <h3 style="margin:0 0 10px 0; color:gold;">Trailer</h3>
+                        <h3 style="color:gold;">Trailer</h3>
 
                         <iframe width="100%" height="315"
-                            src="https://www.youtube.com/embed/KzBBIBSi2Vo?si=rQYnXU66mLfyLKCx"
-                            frameborder="0" allowfullscreen></iframe>
+                            src="https://www.youtube.com/embed/KzBBIBSi2Vo"
+                            allowfullscreen></iframe>
                     </div>
 
                     <div class="col-md-4">
                         <h3 style="color:gold;">Popular</h3>
 
-                        <div id="popularList" style="
-                            display:flex;
-                            gap:12px;
-                            overflow-x:auto;
-                            height:315px;
-                            align-items:center;
-                            padding-bottom:10px;
-                        "></div>
+                        <div id="popularList" style="display:flex; gap:12px; overflow-x:auto;"></div>
                     </div>
 
                 </div>
@@ -208,40 +198,12 @@
             release.textContent = film.release_date;
             runtime.textContent = film.running_time;
 
-            // Popular Movies
-            const popular = films
-                .sort((a, b) => b.rt_score - a.rt_score)
-                .slice(0, 6);
+            const popular = films.slice(0, 6);
 
             popular.forEach(movie => {
-
-                let fileName = "#";
-
-                if (movie.title === "Only Yesterday") {
-                    fileName = "yesterday.html";
-                }
-
-                else if (movie.title === "The Tale of the Princess Kaguya") {
-                    fileName = "Princess_kaguya.html";
-                }
-
-                else if (movie.title === "Grave of the Fireflies") {
-                    fileName = "Grave.html";
-                }
-
-                else if (movie.title === "Kiki's Delivery Service") {
-                    fileName = "kiki's.html";
-                }
-
-                else if (movie.title === "Castle in the Sky") {
-                    fileName = "Castle.html";
-                }
-
                 popularList.innerHTML += `
-        <a href="${fileName}">
-            <img src="${movie.image}" alt="${movie.title}">
-        </a>
-    `;
+                    <img src="${movie.image}">
+                `;
             });
         }
 
@@ -249,5 +211,4 @@
     </script>
 
 </body>
-
 </html>
