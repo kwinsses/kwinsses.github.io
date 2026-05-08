@@ -47,15 +47,6 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
         }
 
-        #popularList img {
-            width: 120px;
-            height: 280px;
-            object-fit: cover;
-            border-radius: 12px;
-            flex-shrink: 0;
-            cursor: pointer;
-        }
-
         .nav-link-custom {
             color: white;
             text-decoration: none;
@@ -65,13 +56,36 @@
             color: gold;
         }
 
-        /* HERO TEXT */
         .hero-text {
             position: absolute;
             top: 0;
             left: 0;
             padding: 16px;
             max-width: 600px;
+        }
+
+        /* HIDE SCROLLBAR BUT KEEP SCROLL */
+        #popularList {
+            scrollbar-width: none;
+        }
+
+        #popularList::-webkit-scrollbar {
+            display: none;
+        }
+
+        #popularList img {
+            width: 120px;
+            height: 280px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 12px;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #popularList img:hover {
+            transform: scale(1.05);
         }
     </style>
 
@@ -121,6 +135,7 @@
 
             </div>
 
+            <!-- RIGHT -->
             <div class="col d-flex flex-column" style="margin-top:50px;">
 
                 <div class="hero">
@@ -163,7 +178,16 @@
                     <div class="col-md-4">
                         <h3 style="color:gold;">Popular</h3>
 
-                        <div id="popularList" style="display:flex; gap:12px; overflow-x:auto;"></div>
+                        <div id="popularList" style="
+                            display:flex;
+                            gap:12px;
+                            overflow-x:auto;
+                            height:315px;
+                            align-items:flex-start;
+                            padding-bottom:10px;
+                            scrollbar-width:none;
+                        "></div>
+
                     </div>
 
                 </div>
@@ -201,9 +225,34 @@
             const popular = films.slice(0, 6);
 
             popular.forEach(movie => {
+
+                let fileName = "#";
+
+                if (movie.title === "Only Yesterday") {
+                    fileName = "yesterday.html";
+                }
+
+                else if (movie.title === "The Tale of the Princess Kaguya") {
+                    fileName = "Princess_kaguya.html";
+                }
+
+                else if (movie.title === "Grave of the Fireflies") {
+                    fileName = "Grave.html";
+                }
+
+                else if (movie.title === "Kiki's Delivery Service") {
+                    fileName = "kiki's.html";
+                }
+
+                else if (movie.title === "Castle in the Sky") {
+                    fileName = "Castle.html";
+                }
+
                 popularList.innerHTML += `
-                    <img src="${movie.image}">
-                `;
+        <a href="${fileName}">
+            <img src="${movie.image}" alt="${movie.title}">
+        </a>
+    `;
             });
         }
 
