@@ -17,18 +17,24 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        body {
-            background: #0f2f3a;
-            color: #fff;
+        /* NAVBAR */
+        body[data-bs-theme="light"] .navbar {
+            background-color: #ffffff !important;
+            border-bottom: 1px solid #ddd;
         }
 
-        /* NAVBAR */
-        .navbar {
-            position: absolute;
-            width: 100%;
-            z-index: 10;
+        body[data-bs-theme="dark"] .navbar {
             background-color: #0f2f3a !important;
         }
+
+        body[data-bs-theme="light"] .navbar {
+            background-color: #ffffff !important;
+        }
+
+        body[data-bs-theme="dark"] .navbar {
+            background-color: #0f2f3a !important;
+        }
+
 
         .navbar-brand {
             color: #d4af37 !important;
@@ -36,6 +42,16 @@
         }
 
         .nav-link {
+            font-weight: 500;
+        }
+
+        /* LIGHT MODE */
+        body[data-bs-theme="light"] .nav-link {
+            color: #000 !important;
+        }
+
+        /* DARK MODE */
+        body[data-bs-theme="dark"] .nav-link {
             color: #fff !important;
         }
 
@@ -97,9 +113,16 @@
             background: #b8860b;
         }
 
-        .section {
+        body[data-bs-theme="light"] .section {
+            padding: 60px;
+            background: #ffffff;
+            color: black;
+        }
+
+        body[data-bs-theme="dark"] .section {
             padding: 60px;
             background: #143c4a;
+            color: white;
         }
 
         .section h3 {
@@ -115,13 +138,21 @@
         }
 
         .card {
-            background: white;
-            color: black;
             border-radius: 15px;
             width: 220px;
             overflow: hidden;
             transition: 0.3s;
             cursor: pointer;
+        }
+
+        body[data-bs-theme="light"] .card {
+            background: #143c4a;
+            color: white;
+        }
+
+        body[data-bs-theme="dark"] .card {
+            background: white;
+            color: black;
         }
 
         .card:hover {
@@ -159,10 +190,10 @@
 
 </head>
 
-<body>
+<body id="body" data-bs-theme="light">
 
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
 
             <a class="navbar-brand" href="#">Studio Ghibli</a>
@@ -184,6 +215,10 @@
                     </li>
 
                 </ul>
+
+                <button id="modeBtn" onclick="switchTheme()" class="btn btn-maroon text-white shadow me-3">
+                    Dark Mode
+                </button>
 
                 <!-- SEARCH -->
                 <form class="d-flex" role="search" onsubmit="return false;">
@@ -324,6 +359,24 @@
 
 
         document.addEventListener("DOMContentLoaded", loadMovies);
+
+        var body = document.getElementById("body");
+        var modeBtn = document.getElementById("modeBtn");
+
+        var mode = body.getAttribute("data-bs-theme") === "dark" ? "Dark" : "Light";
+        modeBtn.innerText = mode === "Dark" ? "Light Mode" : "Dark Mode";
+
+        function switchTheme() {
+            if (mode == "Light") {
+                mode = "Dark";
+                modeBtn.innerText = "Light Mode";
+            } else {
+                mode = "Light";
+                modeBtn.innerText = "Dark Mode";
+            }
+
+            body.setAttribute("data-bs-theme", mode.toLowerCase());
+        }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

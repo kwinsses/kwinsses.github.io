@@ -41,10 +41,21 @@
         }
 
         .details-box {
-            background: #08202a;
             border-radius: 12px;
             padding: 18px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            transition: 0.3s;
+        }
+
+        /* LIGHT MODE */
+        body[data-bs-theme="light"] .details-box {
+            background: white;
+            color: black;
+        }
+
+        /* DARK MODE */
+        body[data-bs-theme="dark"] .details-box {
+            background: #08202a;
+            color: white;
         }
 
         .nav-link-custom {
@@ -86,23 +97,76 @@
         #popularList img:hover {
             transform: scale(1.05);
         }
+
+        body[data-bs-theme="light"] {
+            background: #f5f5f5;
+            color: black;
+        }
+
+        body[data-bs-theme="dark"] {
+            background: #0f2f3a;
+            color: white;
+        }
+
+        /* NAVBAR */
+        body[data-bs-theme="light"] .navbar {
+            background: white !important;
+            border-bottom: 1px solid #ddd;
+        }
+
+        body[data-bs-theme="dark"] .navbar {
+            background: #08202a !important;
+        }
+
+        .nav-link-custom {
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        body[data-bs-theme="light"] .nav-link-custom {
+            color: black;
+        }
+
+        body[data-bs-theme="dark"] .nav-link-custom {
+            color: white;
+        }
+
+        .nav-link-custom:hover {
+            color: gold;
+        }
+
+        .btn {
+            background: gold;
+            color: black;
+            font-weight: 600;
+            border: none;
+        }
+
+        .btn {
+            background: #d4af37;
+        }
     </style>
 
 </head>
 
-<body>
+<body id="body" data-bs-theme="light">
 
-    <nav class="navbar navbar-expand-lg px-4" style="background:#08202a;">
-        <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg px-4"">
+        <div class=" container-fluid">
 
-            <a class="navbar-brand fw-bold fs-3" href="#" style="color:gold;">
-                Ghibli Films
-            </a>
+        <a class="navbar-brand fw-bold fs-3" href="#" style="color:gold;">
+            Ghibli Films
+        </a>
 
-            <div class="d-flex gap-4">
-                <a href="index.html" class="nav-link-custom">Home</a>
-                <a href="Movies.html" class="nav-link-custom">Movies</a>
-            </div>
+        <div class="d-flex align-items-center gap-4 ms-auto">
+            <a href="index.html" class="nav-link-custom">Home</a>
+            <a href="Movies.html" class="nav-link-custom">Movies</a>
+        </div>
+
+        <button id="modeBtn" onclick="switchTheme()" class="btn btn-maroon text-white shadow me-3">
+            Dark Mode
+        </button>
 
         </div>
     </nav>
@@ -118,8 +182,7 @@
 
                     <a href="Movies.html" class="text-warning text-decoration-none d-block mb-2">←</a>
 
-                    <img id="poster" class="w-100 rounded"
-                        style="height:380px; object-fit:cover;">
+                    <img id="poster" class="w-100 rounded" style="height:380px; object-fit:cover;">
 
                     <div class="details-box mt-3">
                         <h6 class="text-warning">Details</h6>
@@ -153,12 +216,10 @@
 
                         <div id="rating" class="h5 mt-2"></div>
 
-                        <a href="https://www.youtube.com/watch?v=eJ3WYCZuKbA?"
-                            class="btn btn-warning mt-3 fw-semibold"
+                        <a href="https://www.youtube.com/watch?v=eJ3WYCZuKbA?" class="btn btn-warning mt-3 fw-semibold"
                             target="_blank">
                             ▶ Watch Movie
                         </a>
-
                     </div>
 
                 </div>
@@ -169,8 +230,7 @@
                     <div class="col-md-8">
                         <h3 style="color:gold;">Trailer</h3>
 
-                        <iframe width="100%" height="315"
-                            src="https://www.youtube.com/embed/RzSpDgiF5y8?si=j4yV7_2_2i1ZgaU_"
+                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/RzSpDgiF5y8"
                             allowfullscreen></iframe>
                     </div>
 
@@ -260,7 +320,28 @@
         }
 
         loadMovie();
+
+        var body = document.getElementById("body");
+        var modeBtn = document.getElementById("modeBtn");
+
+        var mode = body.getAttribute("data-bs-theme") === "dark" ? "Dark" : "Light";
+        modeBtn.innerText = mode === "Dark" ? "Light Mode" : "Dark Mode";
+
+        function switchTheme() {
+            if (mode == "light") {
+                mode = "dark";
+                modeBtn.innerText = "Light Mode";
+            } else {
+                mode = "light";
+                modeBtn.innerText = "Dark Mode";
+            }
+
+            body.setAttribute("data-bs-theme", mode);
+        }
+        body.setAttribute("data-bs-theme", mode.toLowerCase());
     </script>
 
 </body>
+
 </html>
+
