@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kwinsses C. Valencia | Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-body: #F7F5F0;
+            --card-bg: #FFFFFF;
+            --rose-accent: #D8A7B1;
+            --rose-soft: #FBF0F2;
+            --rose-dark: #A46875;
+            --text-dark: #332C2E;
+            --text-muted: #7A6F72;
+            --border-light: #EFE8E9;
+            --shadow-subtle: 0 10px 30px rgba(164, 104, 117, 0.08);
+            --radius-main: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 40px 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- 6. SCROLL PROGRESS BAR --- */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--rose-accent), var(--rose-dark));
+            width: 0%;
+            border-radius: 0 2px 2px 0;
+            transition: width 0.1s ease-out;
+            box-shadow: 0 0 8px rgba(216, 167, 177, 0.6);
+        }
+
+        /* --- 1. FLOATING PARTICLES CANVAS --- */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .portfolio-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 30px;
+            align-items: start;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- LEFT SIDEBAR (STICKY PROFILE) --- */
+        .sidebar-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-main);
+            padding: 35px 25px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-subtle);
+            text-align: center;
+            position: sticky;
+            top: 40px;
+            animation: slideInLeft 0.8s ease-out;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+        }
+
+        .sidebar-card:hover {
+            box-shadow: 0 15px 35px rgba(164, 104, 117, 0.12);
+        }
+
+        /* --- 2. AVATAR HOVER/INTERACTIVE EFFECT --- */
+        .avatar-box {
+            width: 110px;
+            height: 110px;
+            background: var(--rose-soft);
+            border: 2px solid var(--rose-accent);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            color: var(--rose-dark);
+            font-weight: 700;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .avatar-box::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 2px dashed var(--rose-accent);
+            opacity: 0.5;
+            transition: all 0.4s ease;
+            animation: spinRing 20s linear infinite;
+        }
+
+        .avatar-box::after {
+            content: '🎀';
+            position: absolute;
+            top: -8px;
+            right: -4px;
+            font-size: 1.5rem;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .avatar-box:hover {
+            transform: scale(1.08) rotate(-3deg);
+            box-shadow: 0 0 25px rgba(216, 167, 177, 0.4);
+            border-color: var(--rose-dark);
+        }
+
+        .avatar-box:hover::before {
+            inset: -10px;
+            opacity: 1;
+            border-color: var(--rose-dark);
+        }
+
+        .avatar-box:hover::after {
+            transform: scale(1.3) rotate(15deg) translateY(-3px);
+        }
+
+        @keyframes spinRing {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .sidebar-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.9rem;
+            color: var(--text-dark);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-title {
+            font-size: 0.85rem;
+            color: var(--rose-dark);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .sidebar-bio {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+        }
+
+        .contact-list {
+            text-align: left;
+            border-top: 1px solid var(--border-light);
+            padding-top: 20px;
+            margin-bottom: 25px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .contact-item span {
+            font-size: 1rem;
+        }
+
+        .contact-item a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        /* Copy Email Interactive Style */
+        .email-copy-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-family: inherit;
+            font-size: inherit;
+            color: var(--text-dark);
+            font-weight: 500;
+            padding: 2px 6px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .email-copy-btn:hover {
+            background: var(--rose-soft);
+            color: var(--rose-dark);
+        }
+
+        .email-copy-btn::after {
+            content: '📋';
+            font-size: 0.75rem;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .email-copy-btn:hover::after {
+            opacity: 1;
+        }
+
+        .social-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 12px;
+            background: var(--rose-soft);
+            color: var(--rose-dark);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .social-btn:hover {
+            background: var(--rose-accent);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(216, 167, 177, 0.4);
+        }
+
+        /* --- RIGHT MAIN CONTENT --- */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* --- 3. INTERACTIVE TILT/GLOW ON CARDS --- */
+        .content-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-main);
+            padding: 35px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-subtle);
+            animation: fadeIn 0.8s ease-out;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .content-card:hover {
+            border-color: rgba(216, 167, 177, 0.6);
+            box-shadow: 0 15px 35px rgba(164, 104, 117, 0.12), 0 0 15px rgba(251, 240, 242, 0.8);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 12px;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .section-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .content-card:hover .section-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        /* About & Info */
+        .about-text {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .info-box {
+            background: var(--bg-body);
+            padding: 15px 20px;
+            border-radius: 14px;
+            border: 1px solid #ECE7E1;
+            transition: all 0.3s ease;
+        }
+
+        .info-box:hover {
+            transform: translateY(-2px);
+            background: var(--rose-soft);
+            border-color: var(--rose-accent);
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--rose-dark);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-top: 2px;
+        }
+
+        /* Activities / Projects Grid */
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .activity-card {
+            background: var(--bg-body);
+            border: 1px solid #ECE7E1;
+            border-radius: 16px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .activity-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .activity-card:hover::before {
+            left: 100%;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--rose-accent);
+            background: white;
+            box-shadow: 0 10px 25px rgba(164, 104, 117, 0.1);
+        }
+
+        .activity-tag {
+            display: inline-block;
+            align-self: flex-start;
+            padding: 4px 10px;
+            background: var(--rose-soft);
+            color: var(--rose-dark);
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            transition: background 0.3s ease;
+        }
+
+        .activity-card:hover .activity-tag {
+            background: var(--rose-accent);
+            color: white;
+        }
+
+        .activity-title {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .activity-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 18px;
+        }
+
+        .activity-link {
+            text-decoration: none;
+            color: var(--rose-dark);
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: gap 0.2s ease, color 0.2s ease;
+        }
+
+        .activity-link:hover {
+            gap: 9px;
+            color: var(--rose-accent);
+        }
+
+        /* --- 4. INTERACTIVE SKILL BADGES --- */
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-pill {
+            padding: 8px 16px;
+            background: var(--bg-body);
+            border: 1px solid #ECE7E1;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .skill-pill:hover {
+            background: var(--rose-soft);
+            color: var(--rose-dark);
+            border-color: var(--rose-accent);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 5px 12px rgba(216, 167, 177, 0.3);
+        }
+
+        .skill-pill::after {
+            content: '✨';
+            font-size: 0.75rem;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.2s ease;
+            width: 0;
+        }
+
+        .skill-pill:hover::after {
+            opacity: 1;
+            transform: scale(1);
+            width: auto;
+        }
+
+        /* --- FOOTER --- */
+        .portfolio-footer {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            grid-column: 1 / -1;
+            margin-top: 10px;
+            border-top: 1px dashed var(--rose-accent);
+        }
+
+        /* --- 7. TOAST NOTIFICATION --- */
+        .toast-notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--rose-dark);
+            color: white;
+            padding: 12px 22px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(164, 104, 117, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 10000;
+            opacity: 0;
+            transform: translateY(20px) scale(0.9);
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .toast-notification.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Animations */
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 850px) {
+            .portfolio-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar-card {
+                position: relative;
+                top: 0;
+            }
+
+            .activities-grid, .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 6. SCROLL PROGRESS BAR -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- 1. FLOATING PARTICLES CANVAS -->
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="portfolio-wrapper">
+
+        <!-- LEFT SIDEBAR: PROFILE CARD -->
+        <aside class="sidebar-card js-tilt">
+            <!-- 2. INTERACTIVE AVATAR -->
+            <div class="avatar-box" id="avatarBox" title="Click for extra sparkles! 🎀">K</div>
+
+            <h1 class="sidebar-name">Kwinsses C. Valencia</h1>
+            <p class="sidebar-title">DIT Student & Developer</p>
+            <p class="sidebar-bio">Passionate about building clean code, beautiful interfaces, and web applications.</p>
+
+            <div class="contact-list">
+                <div class="contact-item">
+                    <span>🏫</span>
+                    <div>PUP Philippines</div>
+                </div>
+                <div class="contact-item">
+                    <span>📍</span>
+                    <div>Batangas, Philippines</div>
+                </div>
+                <div class="contact-item">
+                    <span>📧</span>
+                    <div>
+                        <!-- 7. COPY EMAIL FEATURE -->
+                        <button class="email-copy-btn" id="copyEmailBtn" title="Click to copy email">
+                            kwinssesv@gmail.com
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="social-btns">
+                <a href="https://github.com/kwinsses/kwinsses.github.io.git" target="_blank" class="social-btn">GitHub ↗</a>
+            </div>
+        </aside>
+
+        <!-- RIGHT MAIN CONTENT PANEL -->
+        <main class="main-content">
+
+            <!-- ABOUT CARD -->
+            <section class="content-card js-tilt">
+                <div class="section-header">
+                    <h2 class="section-title">About Me</h2>
+                    <span class="section-icon">✨</span>
+                </div>
+                <p class="about-text">
+                    Hi! I'm an Diploma in Information Technology student at the Polytechnic University of the Philippines-STC 
+                    I enjoy exploring web technologies, creating responsive interfaces, and turning design ideas into functional digital solutions.
+                </p>
+
+                <div class="info-grid">
+                    <div class="info-box">
+                        <div class="info-label">Program</div>
+                        <div class="info-value">Diploma in IT</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Focus Area</div>
+                        <div class="info-value">Software & Web Dev</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ACTIVITIES CARD -->
+            <section class="content-card js-tilt">
+                <div class="section-header">
+                    <h2 class="section-title">Activities & Projects</h2>
+                    <span class="section-icon">🎀</span>
+                </div>
+
+                <div class="activities-grid">
+                    <!-- Activity 1 -->
+                    <div class="activity-card">
+                        <div>
+                            <span class="activity-tag">Activity 02</span>
+                            <h3 class="activity-title">AYANEO Pocket DS</h3>
+                            <p class="activity-desc">A device showcase web page featuring clean layout structure and UI design.</p>
+                        </div>
+                        <a href="A02/index.html" class="activity-link">View Project ➔</a>
+                    </div>
+
+                    <!-- Activity 2 -->
+                    <div class="activity-card">
+                        <div>
+                            <span class="activity-tag">Midterm</span>
+                            <h3 class="activity-title">API Integration Portal</h3>
+                            <p class="activity-desc">Interactive web app demonstrating API data fetching and responsive grids.</p>
+                        </div>
+                        <a href="Midterm/index.html" class="activity-link">View Project ➔</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SKILLS CARD -->
+            <section class="content-card js-tilt">
+                <div class="section-header">
+                    <h2 class="section-title">Technologies</h2>
+                    <span class="section-icon">💻</span>
+                </div>
+
+                <!-- 4. INTERACTIVE SKILL PILLS -->
+                <div class="skills-list">
+                    <span class="skill-pill">HTML5</span>
+                    <span class="skill-pill">CSS3 / Flexbox</span>
+                    <span class="skill-pill">JavaScript</span>
+                    <span class="skill-pill">Bootstrap 5</span>
+                    <span class="skill-pill">Python</span>
+                    <span class="skill-pill">Flask</span>
+                    <span class="skill-pill">REST APIs</span>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="portfolio-footer">
+            Kwinsses C. Valencia &bull; 2026
+        </footer>
+
+    </div>
+
+    <!-- 7. TOAST NOTIFICATION CONTAINER -->
+    <div class="toast-notification" id="toast">
+        <span>Copied email! 🎀</span>
+    </div>
+
+    <script>
+        // --- 1. FLOATING COQUETTE SPARKLES / BOW PARTICLES ---
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        const symbols = ['✨', '🌸', '🎀', '💫', '🤍'];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class BackgroundParticle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 100;
+                this.size = Math.random() * 14 + 10;
+                this.speedY = Math.random() * 0.8 + 0.3;
+                this.speedX = Math.sin(Math.random() * Math.PI * 2) * 0.4;
+                this.symbol = symbols[Math.floor(Math.random() * symbols.length)];
+                this.opacity = Math.random() * 0.5 + 0.2;
+                this.rotation = Math.random() * Math.PI * 2;
+                this.rotationSpeed = (Math.random() - 0.5) * 0.02;
+            }
+
+            update() {
+                this.y -= this.speedY;
+                this.x += Math.sin(this.y * 0.01) * 0.5 + this.speedX;
+                this.rotation += this.rotationSpeed;
+
+                if (this.y < -30) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+                ctx.globalAlpha = this.opacity;
+                ctx.font = `${this.size}px sans-serif`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(this.symbol, 0, 0);
+                ctx.restore();
+            }
+        }
+
+        // Initialize particles
+        for (let i = 0; i < 25; i++) {
+            particles.push(new BackgroundParticle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // --- 5. SOFT CLICK RIPPLE / PARTICLE TRAIL EFFECT ---
+        window.addEventListener('click', (e) => {
+            const clickSymbols = ['🎀', '✨', '💖', '🌸'];
+            const count = 5;
+
+            for (let i = 0; i < count; i++) {
+                const el = document.createElement('div');
+                el.innerText = clickSymbols[Math.floor(Math.random() * clickSymbols.length)];
+                el.style.position = 'fixed';
+                el.style.left = e.clientX + 'px';
+                el.style.top = e.clientY + 'px';
+                el.style.fontSize = (Math.random() * 14 + 12) + 'px';
+                el.style.pointerEvents = 'none';
+                el.style.zIndex = '9999';
+                el.style.transition = 'all 0.8s ease-out';
+                el.style.transform = 'translate(-50%, -50%) scale(0.5)';
+                el.style.opacity = '1';
+
+                document.body.appendChild(el);
+
+                const angle = (Math.PI * 2 / count) * i + Math.random() * 0.5;
+                const dist = Math.random() * 40 + 20;
+                const tx = Math.cos(angle) * dist;
+                const ty = Math.sin(angle) * dist - 15;
+
+                requestAnimationFrame(() => {
+                    el.style.transform = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(1.2) rotate(${(Math.random() - 0.5) * 60}deg)`;
+                    el.style.opacity = '0';
+                });
+
+                setTimeout(() => el.remove(), 850);
+            }
+        });
+
+        // --- 6. SCROLL PROGRESS BAR ---
+        window.addEventListener('scroll', () => {
+            const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // --- 7. COPY EMAIL NOTIFICATION ---
+        const copyBtn = document.getElementById('copyEmailBtn');
+        const toast = document.getElementById('toast');
+
+        copyBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // prevent triggering global click particle overlapping excessively
+            const email = 'kwinssesv@gmail.com';
+            
+            // Execute fallback copy
+            const tempInput = document.createElement('textarea');
+            tempInput.value = email;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            // Show Toast
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        });
+
+        // Extra burst when clicking profile avatar
+        const avatarBox = document.getElementById('avatarBox');
+        avatarBox.addEventListener('click', (e) => {
+            e.stopPropagation();
+            for (let i = 0; i < 12; i++) {
+                const el = document.createElement('div');
+                el.innerText = ['🎀', '✨', '🌸', '💖'][Math.floor(Math.random() * 4)];
+                el.style.position = 'fixed';
+                const rect = avatarBox.getBoundingClientRect();
+                el.style.left = (rect.left + rect.width / 2) + 'px';
+                el.style.top = (rect.top + rect.height / 2) + 'px';
+                el.style.fontSize = '18px';
+                el.style.pointerEvents = 'none';
+                el.style.zIndex = '9999';
+                el.style.transition = 'all 0.9s cubic-bezier(0.25, 1, 0.5, 1)';
+                
+                document.body.appendChild(el);
+
+                const angle = Math.random() * Math.PI * 2;
+                const dist = Math.random() * 80 + 30;
+                const tx = Math.cos(angle) * dist;
+                const ty = Math.sin(angle) * dist;
+
+                requestAnimationFrame(() => {
+                    el.style.transform = `translate(${tx}px, ${ty}px) rotate(${Math.random() * 360}deg) scale(1.3)`;
+                    el.style.opacity = '0';
+                });
+
+                setTimeout(() => el.remove(), 950);
+            }
+        });
+
+        // 3. Subtly enhanced tilt feel on hover for content cards
+        const tiltCards = document.querySelectorAll('.js-tilt');
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                const tiltX = (y / (rect.height / 2)) * -2;
+                const tiltY = (x / (rect.width / 2)) * 2;
+
+                card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-2px)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+            });
+        });
+    </script>
+</body>
+</html>
