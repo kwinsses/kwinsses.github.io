@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/about.css">
+  <link rel="stylesheet" href="../css/footer.css">
+
+  <title>About Likhana Jewelry</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap"
+    rel="stylesheet">
+
+</head>
+
+<body>
+  <header>
+    <div class="brand">Likhana Jewelry</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li class="has-dropdown">
+        <a href="#">Shop</a>
+        <ul class="dropdown">
+          <li><a href="bracelet.html">Bracelets</a></li>
+          <li><a href="ring.html">Ring</a></li>
+          <li><a href="necklace.html">Necklaces</a></li>
+          <li><a href="earring.html">Earrings</a></li>
+        </ul>
+      </li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="addToCart.html">Cart</a></li>
+      <li><a href="#" id="signInLink" style="margin-left: 50px;">Sign In</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </header>
+
+  <div id="signInModal" class="modal-overlay hidden" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="signInTitle">
+      <div class="modal-header">
+        <h2 id="signInTitle">Sign In</h2>
+        <button class="modal-close" type="button" id="signInClose">×</button>
+      </div>
+      <div class="modal-body">
+        <p id="signInMessage" style="display:none; margin:0 0 10px 0; color:#b08968; font-weight:600; line-height:1.4;"></p>
+
+        <div id="signInForm" style="display:flex; flex-direction:column; gap:10px;">
+          <p style="margin:0; color:#5b4a3d;">Use any email and password to sign in for this session.</p>
+          <label for="signInEmail" style="font-weight:600; display:block; margin-top:10px;">Email</label>
+          <input id="signInEmail" type="email" placeholder="User/Email"
+            style="width:100%; box-sizing:border-box; padding:10px; border:1px solid #ccc; border-radius:8px;">
+          <label for="signInPassword" style="font-weight:600; display:block; margin-top:10px;">Password</label>
+          <input id="signInPassword" type="password" placeholder="Enter password"
+            style="width:100%; box-sizing:border-box; padding:10px; border:1px solid #ccc; border-radius:8px;">
+        </div>
+
+        <div id="logoutPrompt" style="display:none;">
+          <p style="margin:0 0 8px 0; color:#5b4a3d;">Signed in as <strong id="logoutUserName"></strong>.</p>
+          <p style="margin:0 0 12px 0; color:#5b4a3d;">Do you want to sign out?</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="cancel-btn" type="button" id="signInCancel">Cancel</button>
+        <button class="confirm-btn" type="button" id="signInSubmit">Sign In</button>
+        <button class="confirm-btn" type="button" id="logoutConfirm" style="display:none;">Yes, Sign Out</button>
+        <button class="cancel-btn" type="button" id="logoutCancel" style="display:none;">No</button>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <div class="mission-vision-container">
+      <section class="mission-card">
+        <h3>Our Mission</h3>
+        <p>To create exceptional, handcrafted jewelry that celebrates individuality and elevates everyday
+          moments. We are committed to delivering beautiful, accessible pieces that empower our customers to
+          express their unique identity with confidence and grace.</p>
+      </section>
+      <section class="vision-card">
+        <h3>Our Vision</h3>
+        <p>To be a beacon of artistry and tradition in the jewelry world—a brand where quality craftsmanship
+          meets meaningful design. We envision a community where every piece tells a story, honors heritage,
+          and connects people through the timeless beauty of jewelry.</p>
+      </section>
+    </div>
+
+    <section class="story-card">
+      <h2 class="section-title">Our Story</h2>
+      <p><strong>Likhana Jewelry</strong> is built around a passion for handcrafted beauty and meaningful design.
+      </p>
+      <p>Since our very beginning, Likhana Jewelry has been guided by a simple yet powerful vision: to create
+        pieces that feel deeply personal, effortlessly elegant, and timeless in their beauty. What started as a
+        small local brand has grown into a community of artisans and dreamers who believe that jewelry is more
+        than an accessory—it is a reflection of identity, memory, and meaning.</p>
+
+      <p>Every bracelet, ring, necklace, and earring in our collection is crafted with care and precision. We
+        honor the traditions that inspire us, blending them with modern design to create jewelry that speaks to
+        today’s moments while carrying the spirit of heritage. Our artisans dedicate themselves to every detail,
+        ensuring that each piece embodies both artistry and accessibility, so that beauty can be celebrated by
+        everyone.</p>
+
+      <p>What sets Likhana Jewelry apart is not only the craftsmanship but the story behind it. We are inspired by
+        the richness of culture, the strength of tradition, and the joy of modern life. Each creation is
+        designed to help our customers celebrate milestones, embrace confidence, and carry with them a piece of
+        art that tells their own story.</p>
+
+      <p>We believe jewelry should do more than shine—it should connect generations, honor the hands that made it,
+        and become part of the memories you create. Whether it’s a gift to yourself or a symbol shared with
+        someone you love, Likhana Jewelry is here to accompany you through life’s chapters, turning moments into
+        treasures and stories into timeless keepsakes.</p>
+
+    </section>
+
+    <section class="pdf-section">
+      <h2 class="section-title">Likhana Jewelry Chart</h2>
+      <p>Below is our jewelry chart, including sizing and styling guidance.</p>
+      <iframe class="pdf-frame" src="/images/jewelrychart.pdf" title="Likhana Jewelry Chart"></iframe>
+      <p>Click below to view our detailed jewelry chart:</p>
+      <p><a href="/images/jewelrychart.pdf" target="_blank" class="view-btn">View PDF</a></p>
+      <p class="footer-note">This PDF comes from the same jewelry chart referenced on our home page. It is
+        provided here so you can review our sizing guide and product details in one place.</p>
+    </section>
+  </main>
+
+  <footer id="contact" class="site-footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <p style="margin:5px 0;"><strong>Email:</strong>
+          <a href="mailto:info@likhana.com" class="footer-link">info@likhana.com</a>
+        </p>
+        <p style="margin:5px 0;"><strong>Phone:</strong> +63 912 345 6789</p>
+        <p style="margin:5px 0;"><strong>Address:</strong> 123 Jewelry Street, Manila, Philippines</p>
+      </div>
+
+      <div class="footer-section">
+        <aside class="footer-quote">
+          <p><em>"Elegance is not about being noticed, it’s about being remembered."</em></p>
+        </aside>
+        <button id="contactBtn" class="footer-btn">Contact Us</button>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Likhana Jewelry. All rights reserved.</p>
+      <p style="font-size:12px; opacity:0.6;">Designed by Likhana</p>
+    </div>
+  </footer>
+
+  <!-- Script to trigger email -->
+  <script>
+    document.getElementById("contactBtn").addEventListener("click", () => {
+      showConfirm("Do you want to send us an email?").then(confirmed => {
+        if (confirmed) {
+          window.location.href = "mailto:info@likhana.com?subject=Inquiry%20about%20bracelets&body=Hello%20Likhana%2C%0A%0AI%20have%20a%20question%20about%20your%20bracelet%20collection.";
+        }
+      });
+    });
+
+
+    // Mobile hamburger menu
+    function toggleMenu() {
+      const nav = document.querySelector('.nav-links');
+      nav.classList.toggle('show');
+    }
+
+    // Dropdown tap for mobile
+    const dropdownParents = document.querySelectorAll('.nav-links li.has-dropdown > a');
+    dropdownParents.forEach(link => {
+      link.addEventListener('click', e => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          const dropdown = link.nextElementSibling;
+          dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+      })
+    });
+  </script>
+
+  <script src="../js/signIn.js"></script>
+
+</body>
+
+</html>

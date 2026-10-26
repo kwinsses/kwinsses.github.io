@@ -1,0 +1,392 @@
+/* Global responsive overrides for Likhana site */
+* {
+  box-sizing: border-box
+}
+
+html,
+body {
+  height: 100%
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased
+}
+
+/* Header / Nav adjustments */
+header {
+  padding: 10px 16px
+}
+
+header .brand {
+  margin-right: 12px
+}
+
+.nav-links {
+  margin-left: auto !important;
+  gap: 18px
+}
+
+.hamburger {
+  display: none
+}
+
+/* Images and media */
+img,
+.hero img,
+.featured img,
+.product-card img {
+  max-width: 100%;
+  height: auto;
+  display: block
+}
+
+/* Make tables scrollable on small screens */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch
+}
+
+/* Utility container padding */
+.main-content,
+.cart-container,
+.products,
+.featured,
+.hero,
+.product-description {
+  padding-left: 6%;
+  padding-right: 6%
+}
+
+/* Modal tweaks */
+.modal {
+  max-height: 90vh;
+  overflow: auto
+}
+
+/* Mobile specific rules */
+@media (max-width:768px) {
+  header {
+    padding: 8px 12px;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 160 !important
+  }
+
+  .nav-links {
+    margin-left: 0 !important;
+    display: none !important;
+    flex-direction: column;
+    position: absolute;
+    top: 30px;
+    right: 12px;
+    background: #fff;
+    padding: 6px;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    min-width: 180px;
+    max-width: 86vw
+  }
+
+  .nav-links.show {
+    display: flex !important
+  }
+
+  .nav-links {
+    max-height: calc(100vh - 80px);
+    overflow: auto
+  }
+
+  .hamburger {
+    display: flex !important;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    position: relative !important;
+    right: 0 !important;
+    top: 0 !important;
+    transform: none !important;
+    z-index: 9999 !important
+  }
+
+  .hamburger div {
+    width: 26px;
+    height: 3px;
+    background: #3b2621;
+    border-radius: 2px
+  }
+
+  /* Make nav items full width and readable */
+  .nav-links li {
+    width: 100%
+  }
+
+  .nav-links li a {
+    display: block;
+    padding: 12px 14px;
+    color: #3b2621;
+    text-decoration: none;
+    font-weight: 600;
+    text-align: left
+  }
+
+  .nav-links li a:hover {
+    background: #f2eee8;
+    color: #3b2621
+  }
+
+  .nav-links li .dropdown {
+    display: none;
+    position: static;
+    transform: none;
+    box-shadow: none;
+    background: #87745d;
+    padding-left: 8px;
+    margin: 4px 0
+  }
+
+  .nav-links li .dropdown li {
+    padding: 8px 12px;
+    background: #87745d;
+    border-radius: 6px;
+    margin: 4px 0
+  }
+
+  .nav-links li.has-dropdown>a::after {
+    content: '▼';
+    float: right;
+    margin-left: 8px
+  }
+
+  .nav-links li.has-dropdown.open>.dropdown {
+    display: block
+  }
+
+  .nav-links li .dropdown li a {
+    padding: 0;
+    color: #fff;
+    color: #3b2621
+  }
+
+  /* Brand adjustments to avoid overlap */
+  .brand {
+    font-size: 20px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+  }
+
+  .product-card {
+    min-width: 200px
+  }
+
+  .hero {
+    padding: 60px 6%
+  }
+
+  .products,
+  .reviews,
+  .featured {
+    padding: 60px 6%
+  }
+
+  .video-overlay h1 {
+    font-size: 28px
+  }
+
+  .video-overlay p {
+    font-size: 14px
+  }
+
+  .video-overlay button {
+    padding: 10px 16px;
+    font-size: 14px
+  }
+
+  .modal {
+    width: 94% !important;
+    padding: 14px
+  }
+
+  table {
+    width: 100%;
+    display: block;
+    overflow-x: auto
+  }
+}
+
+/* Small phones */
+@media (max-width:420px) {
+  .nav-links {
+    width: 180px
+  }
+
+  header .brand {
+    font-size: 20px
+  }
+
+  .video-overlay h1 {
+    font-size: 22px
+  }
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #fafafa;
+  color: #3b2621;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  padding: 15px 50px;
+  background-color: rgba(59, 54, 47, 0.95);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+header .brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav-links li a {
+  color: #f5f0e9;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 10px;
+}
+
+.nav-links li a:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.cart-icon {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  font-size: 24px;
+  color: black;
+  text-decoration: none;
+  z-index: 150;
+  transition: transform 0.2s;
+}
+
+.cart-icon:hover {
+  transform: scale(1.2);
+}
+
+/* Checkout Page */
+.checkout-container {
+  padding: 120px 10%;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.checkout-container h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  width: 100%;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+/* Form */
+.checkout-form {
+  flex: 1;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.checkout-form input,
+.checkout-form select {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  width: 100%;
+}
+
+.checkout-form label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.checkout-form button {
+  background: #b08968;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: 0.3s;
+}
+
+.checkout-form button:hover {
+  background: #8b6b54;
+}
+
+/* Order Summary */
+.order-summary {
+  flex: 1;
+  min-width: 320px;
+  background: #f7eee9;
+  padding: 20px;
+  border-radius: 10px;
+  height: fit-content;
+}
+
+.order-summary h2 {
+  margin-top: 0;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.total {
+  font-weight: 700;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.back-cart {
+  display: inline-block;
+  margin-top: 15px;
+  text-decoration: none;
+  color: #3b2621;
+  font-weight: 600;
+}
+
+.back-cart:hover {
+  text-decoration: underline;
+}

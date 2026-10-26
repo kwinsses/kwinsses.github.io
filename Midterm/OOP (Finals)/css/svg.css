@@ -1,0 +1,314 @@
+/* Global responsive overrides for Likhana site */
+* {
+  box-sizing: border-box
+}
+
+html,
+body {
+  height: 100%
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased
+}
+
+/* Header / Nav adjustments */
+header {
+  padding: 10px 16px
+}
+
+header .brand {
+  margin-right: 12px
+}
+
+.nav-links {
+  margin-left: auto !important;
+  gap: 18px
+}
+
+.hamburger {
+  display: none
+}
+
+/* Images and media */
+img,
+.hero img,
+.featured img,
+.product-card img {
+  max-width: 100%;
+  height: auto;
+  display: block
+}
+
+/* Make tables scrollable on small screens */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch
+}
+
+/* Utility container padding */
+.main-content,
+.cart-container,
+.products,
+.featured,
+.hero,
+.product-description {
+  padding-left: 6%;
+  padding-right: 6%
+}
+
+/* Modal tweaks */
+.modal {
+  max-height: 90vh;
+  overflow: auto
+}
+
+/* Mobile specific rules */
+@media (max-width:768px) {
+  header {
+    padding: 8px 12px;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 160 !important
+  }
+
+  .nav-links {
+    margin-left: 0 !important;
+    display: none !important;
+    flex-direction: column;
+    position: absolute;
+    top: 30px;
+    right: 12px;
+    background: #fff;
+    padding: 6px;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    min-width: 180px;
+    max-width: 86vw
+  }
+
+  .nav-links.show {
+    display: flex !important
+  }
+
+  .nav-links {
+    max-height: calc(100vh - 80px);
+    overflow: auto
+  }
+
+  .hamburger {
+    display: flex !important;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    position: relative !important;
+    right: 0 !important;
+    top: 0 !important;
+    transform: none !important;
+    z-index: 9999 !important
+  }
+
+  .hamburger div {
+    width: 26px;
+    height: 3px;
+    background: #3b2621;
+    border-radius: 2px
+  }
+
+  /* Make nav items full width and readable */
+  .nav-links li {
+    width: 100%
+  }
+
+  .nav-links li a {
+    display: block;
+    padding: 12px 14px;
+    color: #3b2621;
+    text-decoration: none;
+    font-weight: 600;
+    text-align: left
+  }
+
+  .nav-links li a:hover {
+    background: #f2eee8;
+    color: #3b2621
+  }
+
+  .nav-links li .dropdown {
+    display: none;
+    position: static;
+    transform: none;
+    box-shadow: none;
+    background: transparent;
+    padding-left: 8px;
+    margin: 4px 0
+  }
+
+  .nav-links li .dropdown li {
+    padding: 8px 12px;
+    background: #968268;
+    border-radius: 6px;
+    margin: 4px 0
+  }
+
+  .nav-links li.has-dropdown>a::after {
+    content: '▼';
+    float: right;
+    margin-left: 8px
+  }
+
+  .nav-links li.has-dropdown.open>.dropdown {
+    display: block
+  }
+
+  .nav-links li .dropdown li a {
+    padding: 0;
+    color: #fff;
+    color: #3b2621
+  }
+
+  /* Brand adjustments to avoid overlap */
+  .brand {
+    font-size: 20px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+  }
+
+  .product-card {
+    min-width: 200px
+  }
+
+  .hero {
+    padding: 60px 6%
+  }
+
+  .products,
+  .reviews,
+  .featured {
+    padding: 60px 6%
+  }
+
+  .video-overlay h1 {
+    font-size: 28px
+  }
+
+  .video-overlay p {
+    font-size: 14px
+  }
+
+  .video-overlay button {
+    padding: 10px 16px;
+    font-size: 14px
+  }
+
+  .modal {
+    width: 94% !important;
+    padding: 14px
+  }
+
+  table {
+    width: 100%;
+    display: block;
+    overflow-x: auto
+  }
+}
+
+/* Small phones */
+@media (max-width:420px) {
+  .nav-links {
+    width: 180px
+  }
+
+  header .brand {
+    font-size: 20px
+  }
+
+  .video-overlay h1 {
+    font-size: 22px
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eef1ff;
+  font-family: Inter, Arial, sans-serif;
+  color: #1d1d2f;
+  padding: 16px;
+}
+
+.card {
+  width: min(760px, 100%);
+  background: white;
+  padding: 16px;
+  border-radius: 14px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.11);
+  text-align: center;
+}
+
+h1 {
+  margin: 0 0 6px;
+  font-size: 1.45rem;
+}
+
+p {
+  margin: 0 0 14px;
+  color: #444;
+}
+
+.ring-frame {
+  width: 300px;
+  margin: 0 auto;
+  background: radial-gradient(circle at 50% 15%, #fefefe, #f2f5ff 55%, #d3dbff);
+  border-radius: 18px;
+  padding: 10px;
+  border: 1px solid #dae1ff;
+}
+
+svg {
+  width: 100%;
+  height: auto;
+}
+
+.controls {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.controls label {
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.color-value {
+  background: #f0f3ff;
+  border: 1px solid #d7dcff;
+  border-radius: 8px;
+  padding: 5px 8px;
+  font-family: monospace;
+}
+
+small {
+  display: block;
+  margin-top: 8px;
+  color: #555;
+}

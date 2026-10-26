@@ -1,0 +1,60 @@
+.site-footer {
+  background: #3b362f;
+  color: #f5f0e9;
+  padding: 40px 5%; /* Reduced side padding for mobile */
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-container {
+  display: grid;
+  /* Changed 300px to 250px to fit better on smaller phones */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 30px;
+  text-align: center; /* Center everything for mobile */
+}
+
+/* On screens larger than 768px (Tablets/Desktop), revert to left-align */
+@media (min-width: 768px) {
+  .footer-container {
+    text-align: left;
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+}
+
+.footer-link {
+  color: #b08968;
+  font-weight: 600;
+  text-decoration: none;
+  word-break: break-all; /* Prevents long emails from breaking layout */
+  transition: color 0.3s;
+}
+
+.footer-quote {
+  font-style: italic;
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+.footer-btn {
+  background: #b08968;
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+  width: 100%; /* Makes button full width on mobile for easy tapping */
+  max-width: 300px; /* Prevents it from getting too huge */
+}
+
+/* Tablet/Desktop button constraint */
+@media (min-width: 768px) {
+  .footer-btn {
+    width: auto;
+  }
+}

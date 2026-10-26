@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management Console - Cat Cafe Lounge</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --brand-pink: #f8b6d2;
+            --brand-dark: #221c1a;
+            --brand-muted: #5c5250;
+            --brand-light: #fdfbf9;
+            --brand-surface: #ffffff;
+            --card-shadow: 0 8px 24px rgba(34, 28, 26, 0.03);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--brand-light);
+            color: var(--brand-muted);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, .sidebar-brand {
+            font-family: 'Playfair Display', serif;
+            color: var(--brand-dark);
+        }
+
+        /* Unique Modular Sidebar Wrapper */
+        .admin-sidebar {
+            background-color: var(--brand-dark);
+            min-height: 100vh;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem 1.5rem;
+        }
+
+        .sidebar-brand {
+            font-size: 1.25rem;
+            letter-spacing: 1px;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-admin .nav-link {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 6px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-admin .nav-link i {
+            font-size: 1.1rem;
+            margin-right: 12px;
+        }
+
+        .nav-admin .nav-link:hover, 
+        .nav-admin .nav-link.active {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .nav-admin .nav-link.active i {
+            color: var(--brand-pink);
+        }
+
+        /* Main Workspace Control Desk */
+        .workspace-panel {
+            padding: 2.5rem;
+        }
+
+        /* Minimal Executive Dashboard Cards */
+        .stat-card {
+            background: var(--brand-surface);
+            border: 1px solid rgba(34, 28, 26, 0.04);
+            border-radius: 16px;
+            padding: 1.75rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--brand-dark);
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: #a09592;
+        }
+
+        /* Elevated Custom Table Design */
+        .custom-panel-card {
+            background: var(--brand-surface);
+            border: 1px solid rgba(34, 28, 26, 0.04);
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 1.5rem 2rem;
+            background: #ffffff;
+            border-bottom: 1px solid rgba(34, 28, 26, 0.05);
+        }
+
+        .table-premium {
+            margin-bottom: 0;
+        }
+
+        .table-premium th {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            background-color: #fbf9f6;
+            color: var(--brand-dark);
+            padding: 14px 24px;
+            border-bottom: 1px solid rgba(34, 28, 26, 0.05);
+        }
+
+        .table-premium td {
+            padding: 16px 24px;
+            vertical-align: middle;
+            font-size: 0.9rem;
+            color: var(--brand-muted);
+            border-bottom: 1px solid rgba(34, 28, 26, 0.03);
+        }
+
+        /* Status and Management Tags */
+        .badge-admin-status {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 5px 10px;
+            border-radius: 6px;
+        }
+
+        .status-active { background-color: #e8f5e9; color: #2e7d32; }
+        .status-pending { background-color: #fff8e1; color: #f57f17; }
+
+        /* Premium Minimalist Button Styles */
+        .btn-brand-action {
+            background-color: var(--brand-dark);
+            color: #ffffff;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-brand-action:hover {
+            color: #ffffff;
+            opacity: 0.9;
+        }
+
+        .btn-outline-subtle {
+            border: 1px solid rgba(34, 28, 26, 0.12);
+            color: var(--brand-dark);
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-outline-subtle:hover {
+            background-color: var(--brand-dark);
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid p-0">
+        <div class="row g-0">
+            
+            <!-- SIDEBAR PANEL SECTION -->
+            <div class="col-10 col-md-3 col-xl-2 admin-sidebar d-flex flex-column">
+                <div class="sidebar-brand text-white fw-bold mb-4 d-flex align-items-center">
+                    <i class="bi bi-cat-fill me-2" style="color: var(--brand-pink);"></i> STUDIO DESK
+                </div>
+                
+                <ul class="nav flex-column nav-admin flex-grow-1">
+                    <li><a href="#" class="nav-link active"><i class="bi bi-sliders"></i> Overview</a></li>
+                    <li><a href="#" class="nav-link"><i class="bi bi-journal-richtext"></i> Menu Manager</a></li>
+                    <li><a href="#" class="nav-link"><i class="bi bi-calendar-check"></i> Reservations</a></li>
+                    <li><a href="#" class="nav-link"><i class="bi bi-heart-pulse"></i> Lounge Cats</a></li>
+                    <li><a href="#" class="nav-link"><i class="bi bi-gear"></i> Settings</a></li>
+                </ul>
+
+                <div class="pt-3 border-top border-secondary border-opacity-20">
+                    <a href="menu.html" class="nav-link text-white-50 small text-decoration-none d-flex align-items-center">
+                        <i class="bi bi-arrow-left-circle me-2"></i> View Live Site
+                    </a>
+                </div>
+            </div>
+
+            <!-- MAIN WORKSPACE DESK AREA -->
+            <div class="col-12 col-md-9 col-xl-10 workspace-panel">
+                
+                <!-- System Area Greeting Header -->
+                <div class="d-flex justify-content-between align-items-center mb-5">
+                    <div>
+                        <h1 class="h3 fw-bold mb-1">Lounge Workspace</h1>
+                        <p class="text-muted small mb-0">System Operational Framework & Metrics Summary</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-brand-action"><i class="bi bi-plus-lg me-1"></i> New Entry</button>
+                    </div>
+                </div>
+
+                <!-- ANALYTICS METRICS ROW -->
+                <div class="row g-4 mb-5">
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-card">
+                            <div class="stat-label mb-2">Total Menu Items</div>
+                            <div class="stat-number">40</div>
+                            <div class="text-muted small mt-2">10 Items / Category</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-card">
+                            <div class="stat-label mb-2">Active Bookings</div>
+                            <div class="stat-number">18</div>
+                            <div class="text-muted small mt-2">Scheduled sessions today</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-card">
+                            <div class="stat-label mb-2">Cats On Duty</div>
+                            <div class="stat-number">12</div>
+                            <div class="text-muted small mt-2">Relaxing in the lounge</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-card">
+                            <div class="stat-label mb-2">Lounge Capacity</div>
+                            <div class="stat-number">64%</div>
+                            <div class="text-muted small mt-2">Optimal safe space tier</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CATEGORY INVENTORY TRACKER & DATA MATRIX -->
+                <div class="custom-panel-card mb-5">
+                    <div class="panel-header d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="fw-bold mb-1">Interactive Menu Distribution</h5>
+                            <p class="text-muted small mb-0">Ensuring balance control allocations remain at 10 items per quadrant</p>
+                        </div>
+                        <span class="badge rounded-pill bg-light text-dark px-3 py-2 border">Verified Live Sync</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-premium align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Category Stream</th>
+                                    <th>Asset Inventory</th>
+                                    <th>Status Allocation</th>
+                                    <th>Action Command</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="fw-semibold text-dark"><i class="bi bi-grid-3x3-gap text-muted me-2"></i> Brownies</td>
+                                    <td>10 of 10 Allocated</td>
+                                    <td><span class="badge badge-admin-status status-active">Complete Grid</span></td>
+                                    <td><button class="btn btn-outline-subtle">Modify Space</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-semibold text-dark"><i class="bi bi-cookie text-muted me-2"></i> Cookies</td>
+                                    <td>10 of 10 Allocated</td>
+                                    <td><span class="badge badge-admin-status status-active">Complete Grid</span></td>
+                                    <td><button class="btn btn-outline-subtle">Modify Space</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-semibold text-dark"><i class="bi bi-cup-hot text-muted me-2"></i> Drinks</td>
+                                    <td>10 of 10 Allocated</td>
+                                    <td><span class="badge badge-admin-status status-active">Complete Grid</span></td>
+                                    <td><button class="btn btn-outline-subtle">Modify Space</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-semibold text-dark"><i class="bi bi-cake2 text-muted me-2"></i> Cakes</td>
+                                    <td>10 of 10 Allocated</td>
+                                    <td><span class="badge badge-admin-status status-active">Complete Grid</span></td>
+                                    <td><button class="btn btn-outline-subtle">Modify Space</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- UPCOMING LATEST RESERVATIONS SECTION -->
+                <div class="custom-panel-card">
+                    <div class="panel-header">
+                        <h5 class="fw-bold mb-1">Imminent Lounge Check-Ins</h5>
+                        <p class="text-muted small mb-0">Real-time tracking for incoming lounge room interaction visits</p>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-premium align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Guest Signature</th>
+                                    <th>Target Time</th>
+                                    <th>Party Configuration</th>
+                                    <th>Status Flow</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="fw-semibold text-dark">Evelyn Harper</td>
+                                    <td>4:30 PM - Room Alpha</td>
+                                    <td>2 Guests</td>
+                                    <td><span class="badge badge-admin-status status-active">Confirmed</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-semibold text-dark">Julian Vance</td>
+                                    <td>5:00 PM - Main Hub</td>
+                                    <td>4 Guests</td>
+                                    <td><span class="badge badge-admin-status status-pending">Pending Hold</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JavaScript Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
