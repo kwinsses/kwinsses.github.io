@@ -679,13 +679,11 @@
 
                 <!-- 4. INTERACTIVE SKILL PILLS -->
                 <div class="skills-list">
-                    <span class="skill-pill">HTML5</span>
-                    <span class="skill-pill">CSS3 / Flexbox</span>
-                    <span class="skill-pill">JavaScript</span>
-                    <span class="skill-pill">Bootstrap 5</span>
+                    <span class="skill-pill">HTML & CSS</span>
+                    <span class="skill-pill">SQL</span>
+                    <span class="skill-pill">Java</span>
+                    <span class="skill-pill">GIT & GITHUB</span>
                     <span class="skill-pill">Python</span>
-                    <span class="skill-pill">Flask</span>
-                    <span class="skill-pill">REST APIs</span>
                 </div>
             </section>
 
@@ -775,7 +773,7 @@
 
         // --- 5. SOFT CLICK RIPPLE / PARTICLE TRAIL EFFECT ---
         window.addEventListener('click', (e) => {
-            const clickSymbols = ['🎀', '✨', '💖', '🌸'];
+            const clickSymbols = ['🎀', '✨', '🌸'];
             const count = 5;
 
             for (let i = 0; i < count; i++) {
@@ -844,7 +842,7 @@
             e.stopPropagation();
             for (let i = 0; i < 12; i++) {
                 const el = document.createElement('div');
-                el.innerText = ['🎀', '✨', '🌸', '💖'][Math.floor(Math.random() * 4)];
+                el.innerText = ['🎀', '✨', '🌸'][Math.floor(Math.random() * 3)];
                 el.style.position = 'fixed';
                 const rect = avatarBox.getBoundingClientRect();
                 el.style.left = (rect.left + rect.width / 2) + 'px';
